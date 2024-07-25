@@ -1,5 +1,4 @@
-"use client"
-
+"use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -19,7 +18,10 @@ export default function Register() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        firstname: fname,
+        fname,
+        lname,
+        email,
+        password
       }),
     });
   
