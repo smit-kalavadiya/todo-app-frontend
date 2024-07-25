@@ -13,7 +13,7 @@ export default function Register() {
 
 
   const postData = async () => {
-    const response = await fetch("localhost:5000/user/register/", {
+    const response = await fetch("https://todo-app-mern-tbyk.onrender.com/api/user/register", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -29,13 +29,9 @@ export default function Register() {
 
 
   const handleSubmit=(e: { preventDefault: () => void; })=>{
-
     e.preventDefault();
     postData();
-    console.log(fname);
-  
     router.push("/login");
-
   }
 
   return (
