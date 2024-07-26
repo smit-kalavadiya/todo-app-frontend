@@ -1,4 +1,35 @@
+"use client";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 export default function Login() {
+
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const postData = async () => {
+    const response = await fetch("https://todo-app-mern-tbyk.onrender.com/api/user/login", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        password
+      }),
+    });
+  
+    const result = await response.json();
+    console.log(result);
+  };
+
+  const handleSubmit=(e: { preventDefault: () => void; })=>{
+    e.preventDefault();
+    postData();
+    router.push("/");
+  }
+
     return (
         <section>
             <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -8,11 +39,11 @@ export default function Login() {
   </div>
 
   <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-    <form className="space-y-6" action="#" method="POST">
+    <form onSubmit={handleSubmit} className="space-y-6" action="#" method="POST">
       <div>
         <label  className="block text-sm font-medium leading-6 text-gray-900">Email address</label>
         <div className="mt-2">
-          <input id="email" name="email" type="email"  required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></input>
+          <input value={email} onChange={(e)=>{setEmail(e.target.value)}} id="email" name="email" type="email"  required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></input>
         </div>
       </div>
 
@@ -24,7 +55,7 @@ export default function Login() {
           </div>
         </div>
         <div className="mt-2">
-          <input id="password" name="password" type="password"  required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+          <input value={password} onChange={(e)=>{setPassword(e.target.value)}} id="password" name="password" type="password"  required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
         </div>
       </div>
 
