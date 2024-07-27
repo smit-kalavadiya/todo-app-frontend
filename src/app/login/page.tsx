@@ -1,6 +1,8 @@
-"use client";
+
+"use client"
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { setCookie , getCookie } from 'cookies-next';
 
 export default function Login() {
 
@@ -21,7 +23,8 @@ export default function Login() {
     });
   
     const result = await response.json();
-    console.log(result);
+    setCookie('userdata', email);
+    
   };
 
   const handleSubmit=(e: { preventDefault: () => void; })=>{
