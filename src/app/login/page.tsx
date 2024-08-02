@@ -5,10 +5,14 @@ import { useRouter } from "next/navigation";
 import { setCookie , getCookie } from 'cookies-next';
 
 export default function Login() {
-
+  
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  if(!getCookie("userdata")) {
+    router.push("/");
+  }
 
   const postData = async () => {
     const response = await fetch("https://todo-app-mern-tbyk.onrender.com/api/user/login", {
