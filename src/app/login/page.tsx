@@ -10,9 +10,10 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  if(!getCookie("userdata")) {
+  if(getCookie("userToken")) {
     router.push("/");
   }
+  
 
   const postData = async () => {
     const response = await fetch("https://todo-app-mern-tbyk.onrender.com/api/user/login", {
@@ -27,15 +28,19 @@ export default function Login() {
     });
   
     const result = await response.json();
-    console.log(result)
-    setCookie('userdata', email);
+    if(result.status = false){
+      return console.log("incorrect credentials!")
+    } 
+
+    await setCookie("userToken",result.data.accessToken)
+    router.push("/")
     
   };
 
   const handleSubmit=(e: { preventDefault: () => void; })=>{
     e.preventDefault();
     postData();
-    router.push("/");
+    
   }
 
     return (
